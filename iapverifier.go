@@ -2,11 +2,8 @@
 
 iapverifier
 
-Version: 	0.0.1
 Author: 	Paul Crawford
 License: 	(refer to license file)
-
-TODO: write basic tests for common cases
 
 */
 
@@ -187,7 +184,6 @@ func (v *IapVerifier) verify(receipt string, isBase64Encoded bool) (*ResponseInf
 		return nil, errors.New("Error getting apple data")
 	}
 
-	fmt.Println("200 Status")
 	resData, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		// TODO: handle error case
@@ -195,16 +191,14 @@ func (v *IapVerifier) verify(receipt string, isBase64Encoded bool) (*ResponseInf
 	}
 	res.Body.Close()
 
-	//fmt.Println("A Full apple response: ", string(resData))
 	appleResp := AppleResponse{}
-	fmt.Println("resData:", string(resData))
+
 	err = json.Unmarshal(resData, &appleResp)
 	if err != nil {
 		return nil, err
 	}
 
 	r := responseCodes[appleResp.Status]
-	fmt.Println("RESP: ", r)
 	r.Data = appleResp.Receipt
 	return &r, nil
 }
