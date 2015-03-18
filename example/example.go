@@ -18,14 +18,13 @@ func main() {
 		fmt.Println("Error verifying bad receipt:", err)
 	}
 	fmt.Println("Response for bad receipt:", r)
-
 	fmt.Println("Verify receipt good receipt")
 
 	// you'll need to provide a valid receipt string here
 	rec := `your base64 encoded receipt data here`
 
 	r, err = verifier.VerifyReceipt(rec, true)
-	fmt.Println("check: ", r)
+
 	if err != nil {
 		fmt.Println("Error: ", err)
 	}
